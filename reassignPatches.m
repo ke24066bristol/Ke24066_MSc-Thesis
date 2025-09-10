@@ -1,0 +1,23 @@
+%% clear
+
+clear; close all; clc;
+
+% patch imds
+
+patch_imds  = imageDatastore("D:\MSc Data\PATCHES");
+
+gap_names   = patch_imds.Files(1:28,1);
+tow_names   = patch_imds.Files(29:56,1);
+
+for c_tow_img = 1:height(tow_names)
+
+    i_tow_name = tow_names{c_tow_img};
+
+    i_tow_data = imread(tow_names{c_tow_img});
+
+    i_proxy_gap_data = imcomplement(i_tow_data);
+    i_proxy_gap_name = replace(i_tow_name,"ftow", "fgap");
+
+    imwrite(i_proxy_gap_data, i_proxy_gap_name);
+
+end
